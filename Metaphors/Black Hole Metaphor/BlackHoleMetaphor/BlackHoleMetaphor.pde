@@ -1,4 +1,4 @@
-//Global Variables et al
+Dorothy Gomes//Global Variables et al
 Boolean startMouse = false, startKeyboard = false;
 int starCount = 50; //Will be a static variable, encapsulated
 Star[] stars = new Star[starCount];
