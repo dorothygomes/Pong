@@ -52,8 +52,8 @@ class Paddle {
   //
   void paddleDraw() {
     //Background here will cover each individual ball
-    fill(colour);
     gamePlay(); //Arithmetic Code, Security Feauture 
+    fill(colour);
     rect (paddleXLeft, paddleYLeft, paddleWidth, paddleHeight);
     rect (paddleXRight, paddleYRight, paddleWidth, paddleHeight);
     fill(0); //Reset fill
