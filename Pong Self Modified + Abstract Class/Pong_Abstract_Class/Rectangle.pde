@@ -18,7 +18,7 @@ class Rectangle extends Shape {
 
 class Paddle {
   //Variables
-  color colour, white=#FFFFFF;
+  color colour;
   int paddleXLeft, paddleXRight, paddleYLeft, paddleYRight, paddleWidth, paddleHeight;
   int yMove; // Possible Easteregg to move paddles at a different speed requires two variables 
   boolean upLeft = false, downLeft = false, upRight = false, downRight = false;
@@ -94,7 +94,7 @@ class Paddle {
     if (paddleYRight > height - paddleHeight ) paddleYRight = height - paddleHeight;
     //
     //Printing the Scoreboard
-    fill(white); //board background
+    fill(colour); //board background
     //rect(leftBoardX, leftBoardY, boardSide, boardSide);
     //rect(rightBoardX, rightBoardY, boardSide, boardSide);
     fill(colour); //reset

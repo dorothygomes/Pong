@@ -1,6 +1,6 @@
 //Main Program
 
-//Blobal Variables and Other (Classes)
+//Global Variables and Other (Classes)
 ArrayList<Shape> shapes = new ArrayList<Shape>();
 // 
 // Static Variables, processing, java specific, similar to final 
