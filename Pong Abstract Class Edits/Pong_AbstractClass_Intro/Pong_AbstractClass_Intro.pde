@@ -15,13 +15,25 @@ void setup() {
   final int ballDiameter = width * 1/50; 
   Circle ball = new Circle(ballWidthStart, ballHeightStart, ballDiameter, ballDiameter); //Can create arrays here for multiple balls 
   //Rectangle leftPaddle 
+  final int leftPaddleXStart = width * 1/40; //Garbage collected 
+  final int leftPaddleYStart = (height * 1/2) - (height * 1/2) * 1/2; 
+  final int leftPaddleWidthStart = width * 1/40; 
+  final int leftPaddleHeightStart = height * 1/2; 
+  Rectangle leftPaddle = new Rectangle(leftPaddleXStart, leftPaddleYStart, leftPaddleWidthStart, leftPaddleHeightStart);
   //Rectangle rightPaddle 
+  final int rightPaddleXStart = width * 38/40; //Garbage collected 
+  final int rightPaddleYStart = (height * 1/2) - (height * 1/2) * 1/2; 
+  final int rightPaddleWidthStart = width * 1/40; 
+  final int rightPaddleHeightStart = height * 1/2; 
+  Rectangle rightPaddle = new Rectangle(rightPaddleXStart, rightPaddleYStart, rightPaddleWidthStart, rightPaddleHeightStart);
   //Rectangle leftScore 
   //Rectangle rightScore
   //
   //ArrayList Population, reminder, all variables and classes 
   //          will be garbage collected, local variables 
   shapes.add(ball);
+  shapes.add(leftPaddle);
+  shapes.add(rightPaddle);
   //
 }//End setup 
 
