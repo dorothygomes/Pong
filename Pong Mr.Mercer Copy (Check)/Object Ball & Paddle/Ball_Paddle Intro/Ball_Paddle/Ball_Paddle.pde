@@ -1,6 +1,6 @@
 /* To Do
-Copy over prototyped Ball Class, illustrates modular programming & libraries 
-*/
+ See Line #27 for scoreboard, turn off counting
+ */
 
 //Global Variables and Other
 Paddle paddle;
@@ -12,7 +12,6 @@ Boolean[] leftScoreOff = new Boolean [balls.length]; //links to score so code is
 Boolean[] rightScoreOff = new Boolean [balls.length]; //links to score so code is skipped if ball is used once
 
 void setup() {
-  //fullScreen();
   size (600, 500); //fullScreen(), displayWidth, displayHeight;
   //
   paddle = new Paddle(width, height); //For the Constructor
@@ -31,7 +30,6 @@ void draw() {
   for ( int i = 0; i<ballCounter; i++ ) { //Controls each ball
     balls[i].ballDraw(); //Variables and Contructor
     balls[i].gamePlay();
-    balls[i].directionYSetter(paddle.paddleXLeftGetter(), paddle.paddleYLeftGetter(), paddle.paddleXRightGetter(), paddle.paddleYRightGetter(), paddle.paddleWidthGetter(), paddle.paddleHeightGetter());
     if ( balls[i].ballLeftGoalGetter() == true && leftScoreOff[i] == false) {
       paddle.leftScoreSetter();
       leftScoreOff[i] = true;
@@ -44,10 +42,10 @@ void draw() {
 }//End draw()
 
 void keyPressed() {
-  if (key == CODED && key == 'W' || key == 'w') paddle.upLeftGetter(); //Security Feature 
+  if (key == CODED && key == 'W' || key == 'w') paddle.upLeftGetter(); //Security Feature
   if (key == CODED && key == 'S' || key == 's') paddle.downLeftGetter(); //Security Feature
-  if (key == CODED && keyCode == UP) paddle.upRightGetter(); //Security Feature 
-  if (key == CODED && keyCode == DOWN) paddle.downRightGetter(); //Security Feature 
+  if (key == CODED && keyCode == UP) paddle.upRightGetter(); //Security Feature
+  if (key == CODED && keyCode == DOWN) paddle.downRightGetter(); //Security Feature
 }//End keyPressed
 
 void mousePressed() {
@@ -59,7 +57,7 @@ void mousePressed() {
     // Thus, the FOR Loop deals with the difference between human and computer numbering.
   }
   for ( int i = ballCounter-1; i<ballCounter; i++ ) { //Constructor for other balls should not be run
-    balls[i] = new Ball(width, height); 
+    balls[i] = new Ball(width, height);
   }
   //
 }//End mousePressed
