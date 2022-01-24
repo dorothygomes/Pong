@@ -108,4 +108,23 @@ class Paddle {
   void rightScoreSetter() { //Set Right Score Variable
     rightScore++;
   }
+  int paddleXLeftGetter() {
+    return paddleXLeft;
+  }//End Paddle X Left Getter
+  int paddleXRightGetter() {
+    return paddleXRight;
+  }//End Paddle X Left Getter
+  int paddleWidthGetter() {
+    return paddleWidth;
+  }//End Paddle X Left Getter
+  int paddleYLeftGetter() {
+    return paddleYLeft;
+  }//End Paddle X Left Getter
+  int paddleYRightGetter() {
+    return paddleYRight;
+  }//End Paddle X Left Getter
+  int paddleHeightGetter() {
+    return paddleHeight;
+  }//End paddleHeight Getter
+  //
 }//End Ball

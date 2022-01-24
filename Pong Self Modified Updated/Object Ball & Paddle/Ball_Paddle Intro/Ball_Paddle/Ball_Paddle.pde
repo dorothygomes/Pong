@@ -30,6 +30,7 @@ void draw() {
   for ( int i = 0; i<ballCounter; i++ ) { //Controls each ball
     balls[i].ballDraw(); //Variables and Contructor
     balls[i].gamePlay();
+    balls[i].directionYSetter(paddle.paddleXLeftGetter(), paddle.paddleYLeftGetter(), paddle.paddleXRightGetter(), paddle.paddleYRightGetter(), paddle.paddleWidthGetter(), paddle.paddleHeightGetter());
     if ( balls[i].ballLeftGoalGetter() == true && leftScoreOff[i] == false) {
       paddle.leftScoreSetter();
       leftScoreOff[i] = true;

@@ -53,7 +53,7 @@ class Ball {
         ballY = ballY; //Variable becomes "final" here
       }
     } //End Net Detection
-    println("1.", ballXLeftGoal, "\t2.", ballXRightGoal);
+    //println("1.", ballXLeftGoal, "\t2.", ballXRightGoal);
     //
     //Top and Bottom Boundary Bounce, accounting for increased ball movement per "step"
     // Bounce of Top and Bottom: bounce is a range and we move the ball if out-of-bounds
@@ -73,6 +73,9 @@ class Ball {
       ballY += ballMoveY;
     }
     //
+    //Bouncing off Left and Right Paddle
+    //See directionYSetter that runs in main program
+    //
   }//End gamePlay
   //
   //Getters and Setters
@@ -82,4 +85,23 @@ class Ball {
   Boolean ballRightGoalGetter() { //Score Communication
     return ballXRightGoal;
   }
+  int ballXGetter() {
+    return ballX;
+  }//End ballXGetter
+  int ballYGetter() {
+    return ballY;
+  }//End ballYGetter
+  int ballDiameterGetter() {
+    return ballDiameter;
+  }//End ballDiameterGetter
+  void directionYSetter(int paddleXLeft, int paddleYLeft, int paddleXRight, int paddleYRight, int paddleWidth, int paddleHeight) {
+    if (ballX <= width*1/4) { //Left Paddle Only
+      if ( ballY >= paddleYLeft && ballY <= paddleYLeft+paddleHeight ) {
+        if (ballX <= paddleXLeft+paddleWidth+ballDiameter ) directionX = directionX * (-1); //Could be one line, see below
+      }//End ballY IF
+    }
+    //Right Paddle Only, one line example, cascading if
+    if (ballX >= width*3/4) if ( ballY >= paddleYRight && ballY <= paddleYRight+paddleHeight ) if (ballX >= paddleXRight - ballDiameter) directionX = directionX * (-1); 
+  }//End directionYSetter
+  //
 }//End Ball
