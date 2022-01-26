@@ -1,66 +1,65 @@
-/* To Do
- See Line #27 for scoreboard, turn off counting
- */
+// Global Objects
+Firework[] ball = new Firework [1]; //Needs to include a Static Variable
+Firework[] threeBallStart = new Firework [3]; //Needs to include a Static Variable
+Firework[] explosion = new Firework [25]; //Needs to include a Static Variable
+// Paddle List goes here, when we write it, then populate constructor below
+PaddlesClass[] paddle = new PaddlesClass [2];
 
-//Global Variables and Other
-Paddle paddle;
-//
-// From Ball_Intro Main Program
-Ball[] balls = new Ball[10]; //Not just an array, but an array list
-int ballCount = 0;
-int 
-int ballCounter = balls.length - balls.length; // How to get "Zero but use another value"
-Boolean[] leftScoreOff = new Boolean [balls.length]; //links to score so code is skipped if ball is used once
-Boolean[] rightScoreOff = new Boolean [balls.length]; //links to score so code is skipped if ball is used once
+// Global Varaibles
+color black = #010000;
 
 void setup() {
-  size (600, 500); //fullScreen(), displayWidth, displayHeight;
-  //
-  paddle = new Paddle(width, height); //For the Constructor
-  balls[ballCounter] = new Ball(width, height); 
-  ballCounter +=1;
-  for (int i=0; i<balls.length; i++) {
-    leftScoreOff[i] = false;
-    rightScoreOff[i] = false;
-  }//Incrementing to false
-  //
-}//End setup()
+  size(500, 600);
+  ball[0] = new Firework (width, height);
+  paddle[0] = new PaddlesClass (width, height, 0.05, 0); //Left Paddle
+  paddle[1] = new PaddlesClass (width, height, 0.95, 0.025); //Right Paddle
+  for (int i=0; i<explosion.length; i++) {
+    explosion[i] = new Firework (width, height);
+  }
+}
 
 void draw() {
+  //ball
+  //ball[0].xSpeed is constantly passing through this main program
   background(255);
-  paddle.paddleDraw();
-  for ( int i = 0; i<ballCounter; i++ ) { //Controls each ball
-    balls[i].ballDraw(); //Variables and Contructor
-    balls[i].gamePlay();
-    balls[i].directionYSetter(paddle.paddleXLeftGetter(), paddle.paddleYLeftGetter(), paddle.paddleXRightGetter(), paddle.paddleYRightGetter(), paddle.paddleWidthGetter(), paddle.paddleHeightGetter());
-    if ( balls[i].ballLeftGoalGetter() == true && leftScoreOff[i] == false) {
-      paddle.leftScoreSetter();
-      leftScoreOff[i] = true;
-    }
-    if ( balls[i].ballRightGoalGetter() == true && rightScoreOff[i] == false) {
-      paddle.rightScoreSetter();
-      rightScoreOff[i] = true;
+  //println(ball[0].xSpeed);
+  ball[0].xSpeed = ball[0].xSpeed * paddle[0].edgeDetection(ball[0].x, ball[0].y, ball[0].diameter);
+  ball[0].xSpeed = ball[0].xSpeed * ball[0].edgeDetection(ball[0].xSpeed);
+  ball[0].classDraw();
+  ball[0].move();
+  //paddle[1].();
+  //up and down needs to go into the class
+  paddle[0].movePaddle(paddle[0].up, paddle[0].down, height);
+  paddle[1].movePaddle(paddle[1].up, paddle[1].down, height);
+  paddle[0].classDraw();
+  paddle[1].classDraw();
+  if (ball[0].x < paddle[0].x) {
+    for (int i=0; i<explosion.length; i++) {
+      explosion[i].classDraw();
+      explosion[i].move();
+      explosion[i].gravity();
     }
   }
-}//End draw()
-
-void keyPressed() {
-  if (key == CODED && key == 'W' || key == 'w') paddle.upLeftGetter(); //Security Feature
-  if (key == CODED && key == 'S' || key == 's') paddle.downLeftGetter(); //Security Feature
-  if (key == CODED && keyCode == UP) paddle.upRightGetter(); //Security Feature
-  if (key == CODED && keyCode == DOWN) paddle.downRightGetter(); //Security Feature
-}//End keyPressed
+}
 
 void mousePressed() {
-  // For balls
-  if ( ballCounter >= balls.length ) { //Game Quit based on ball counting
-    exit(); //Eventually will become a button
-  } else { 
-    ballCounter += 1; //Note: sequentially, this incrementing creates a problem for the next for loop
-    // Thus, the FOR Loop deals with the difference between human and computer numbering.
+}
+
+void keyPressed() {
+  if (key == CODED && key == 'W' || key == 'w') {
+    paddle[0].up = true;
+    paddle[0].down = false;
   }
-  for ( int i = ballCounter-1; i<ballCounter; i++ ) { //Constructor for other balls should not be run
-    balls[i] = new Ball(width, height);
+  if (key == CODED && key == 'S' || key == 's') {
+    paddle[0].up = false;
+    paddle[0].down = true;
   }
-  //
-}//End mousePressed
+  if (key == CODED && keyCode == UP) {
+    paddle[1].up = true;
+    paddle[1].down = false;
+  }
+  if (key == CODED && keyCode == DOWN) {
+    paddle[1].up = false;
+    paddle[1].down = true;
+  }
+}

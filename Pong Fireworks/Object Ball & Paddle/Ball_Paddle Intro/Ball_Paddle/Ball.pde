@@ -4,7 +4,7 @@ class Ball {
   int ballSpeedX, ballSpeedY;
   int ballStartX, ballStartY, ballDiameter; //Will be final variables
   color colour;
-  int scorePlayer1 = 0, scorePlayer2 = 0;
+  int scorePlayer1, scorePlayer2;
   Boolean ballXLeftGoal=false, ballXRightGoal=false;
   Boolean ballXGoalOnce, createNextBall;
   //
@@ -22,9 +22,9 @@ class Ball {
     this.ballXGoalOnce = false;
     this.createNextBall = false;
     ballDiameter = int(widthParameter/70); //Will soon need a procedure for this or a choice of code'
-    ballSpeedX = int( random (1, 5) ); //Not best practice to repeat code, but OK
-    ballSpeedY = int( random (1, 5) ); //Here b/c "next line"
-    colour = color(int( random(50, 200) ), int( random(50, 200) ), int( random(50, 200) ));
+    this.ballSpeedX = int( random (1, 5) ); //Not best practice to repeat code, but OK
+    this.ballSpeedY = int( random (1, 5) ); //Here b/c "next line"
+    this.colour = color(int( random(50, 200) ), int( random(50, 200) ), int( random(50, 200) ));
   }//End Constructor
   //
   void ballDraw() {
@@ -51,25 +51,33 @@ class Ball {
     //Scoring on Left and Right Goals, resetting variables to decrease system resourses
     if ( ballX < (width*0)+ballDiameter || ballX > width - ballDiameter) { //Net Detection
       if (ballX < (width*0)+ballDiameter ) { //Goal for left player
+        scorePlayer1 = scorePlayer1 + 1;
+        ballX = 0+(ballDiameter/4);
         ballXRightGoal = true;
-        ballX = (width*0)+(ballDiameter/4);
+        ballXGoalOnce = true;
+        createNextBall = true;
         ballY = ballY; //Variable becomes "final" here
       }
       if ( ballX > width - ballDiameter ) { //Goal for right player
-        ballXLeftGoal = true;
+        scorePlayer2++;
         ballX = (width)-(ballDiameter/4);
+        ballXLeftGoal = true;
+        ballXGoalOnce = true; //Passing to Fireworks
+        createNextBall = true;
         ballY = ballY; //Variable becomes "final" here
       }
     } //End Net Detection
     //println("1.", ballXLeftGoal, "\t2.", ballXRightGoal);
     //
     //Top and Bottom Boundary Bounce, accounting for increased ball movement per "step"
-    // Bounce of Top and Bottom: bounce is a range and we move the ball if out-of-bounds
-    if ( (ballY >= height*0 && ballY <= height*0+ballDiameter) || ( ballY <= height && ballY >= height-ballDiameter ) ) directionY =  directionY * (-1);
-    if ( ballY < 0 || ballY > height ) {
-      directionY =  directionY * (-1);
-      if (ballY < 0) ballY = height*0 - (ballDiameter/2);
-      if (ballY > height) ballY = height - (ballDiameter/2);
+    if ( (ballY > 0 && ballY <= 0+(ballDiameter) ) || ( ballY < height && ballY >= height-(ballDiameter) )   ) { //ballY bounce area wider than below
+      directionY = directionY * (-1);
+    }
+    if (ballY < 0+(ballDiameter/2) ) { //Redraw to catch when the bounce has not happened in previous IF
+      ballY = 0+(ballDiameter/2);
+    }
+    if (ballY > height-(ballDiameter/2) ) { //Redraw to catch when the bounce has not happened in first IF
+      ballY = height-(ballDiameter/2);
     }
     //
     //Ball "Step"
